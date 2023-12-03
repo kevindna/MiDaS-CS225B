@@ -17,4 +17,4 @@ X = np.vstack((MM, np.ones(GG.shape))).T 	# Form x matrix
 Y=1/GG	# Invert depth (paper operates in inverse depth space)
 B = np.linalg.inv(X.T@X)@X.T@Y # compute least squares
 
-print("slope {:.8f}\nintercept {:.8f}".format(B[0], B[1]))
+print("scale = {:.8f}\nshift = {:.8f}".format(B[0], B[1]))

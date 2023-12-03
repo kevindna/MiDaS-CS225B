@@ -12,6 +12,12 @@ from utils import read_pfm
 scale = 0.00012385
 shift = 0.10803008
 
+scale = 0.00011075
+shift = 0.12793434
+
+scale = 0.00011072
+shift = 0.12790427
+
 model_output_dir = "/nscratch/kevinand/courses/cs225b/project/MiDaS/output/"
 golden_depth_dir = "/scratch/kevinand/courses/cs225b/project/datasets/nyu_v2/depths/"
 
