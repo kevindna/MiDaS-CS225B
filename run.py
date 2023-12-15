@@ -13,6 +13,8 @@ import numpy as np
 from imutils.video import VideoStream, FileVideoStream
 from midas.model_loader import default_models, load_model
 
+from tqdm import tqdm
+
 first_execution = True
 def process(device, model, model_type, image, input_size, target_size, optimize, use_camera):
 		"""
@@ -55,7 +57,7 @@ def process(device, model, model_type, image, input_size, target_size, optimize,
 
 				if first_execution or not use_camera:
 						height, width = sample.shape[2:]
-						print(f"		Input resized to {width}x{height} before entering the encoder")
+						# print(f"		Input resized to {width}x{height} before entering the encoder")
 						first_execution = False
 
 				prediction = model.forward(sample)
@@ -168,15 +170,15 @@ def run(input_path, output_path, model_path, model_type="dpt_beit_large_512", op
 		if input_path is not None:
 				if output_path is None:
 						print("Warning: No output path specified. Images will be processed but not shown or stored anywhere.")
-				for index, image_name in enumerate(image_names):
+				for index, image_name in tqdm(enumerate(image_names)):
 
-						print("  Processing {} ({}/{})".format(image_name, index + 1, num_images))
+						# print("  Processing {} ({}/{})".format(image_name, index + 1, num_images))
 
 						# input
 						original_image_rgb = utils.read_image(image_name)  # in [0, 1]
 						image = transform({"image": original_image_rgb})["image"]
 						# image = torch.from_numpy(image).to(torch.bfloat16)
-						print("Image type: " + str(image.dtype))
+						# print("Image type: " + str(image.dtype))
 						# compute
 						with torch.no_grad():
 								prediction = process(device, model, model_type, image, (net_w, net_h), original_image_rgb.shape[1::-1],
